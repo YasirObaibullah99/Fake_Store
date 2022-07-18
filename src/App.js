@@ -1,24 +1,55 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import Navbar from "./components/Navbar/Navbar";
+import Home from "./components/Home/Home";
+import Contact from "./components/Contact/Contact"
+import About from "./components/About/About";
+import Sidebar from "./components/Sidebar/Sidebar";
+import { Routes, Route } from "react-router-dom";
+
+import { Parallax } from "react-parallax";
+import Woman from "./images/woman.jpg";
+import City from "./images/city.jpg";
+import Fly from "./images/fly.jpg";
 
 function App() {
+  const [isopen, setisopen] = useState(false);
+  const toggle = () => {
+    setisopen(!isopen);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <>
+      <Navbar toggle={toggle} />
+      <Sidebar isopen={isopen} toggle={toggle} />
+      <Routes>
+        <Route path="/home" element={<Home />} />
+        <Route path="/About" element={<About />} />
+        <Route path="/Contact" element={<Contact />} />
+      </Routes>
+
+      <div className="App">
+      <Parallax strength={300} bgImage={Woman}>
+        <div className="content">
+          <div className="text-content">Normal Parallax</div>
+        </div>
+      </Parallax>
+
+      <Parallax strength={300} blur={{ min: -10, max: 10 }} bgImage={City}>
+        <div className="content">
+          <div className="text-content">Blur</div>
+        </div>
+      </Parallax>
+
+      <Parallax strength={-300} bgImage={Fly}>
+        <div className="content">
+          <div className="text-content">Reverse Parallax</div>
+        </div>
+      </Parallax>
+
+      <div className="content"></div>
     </div>
+    </>
   );
 }
 
