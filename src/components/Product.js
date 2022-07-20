@@ -4,7 +4,7 @@ import { userContext } from "../context/Context";
 import Card from "./Card";
 
 const Product = () => {
-    const { category } = useParams(); // undefined si no tiene parametro
+    const { category } = useParams(); 
     const { state } = useContext(userContext);
 
     const filterCategory = () => {

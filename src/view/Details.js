@@ -51,13 +51,13 @@ const Details = () => {
     useEffect(() => {
         getProductId();
       return () => {}
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
     }, []);
 
     useEffect(() => {
         getProductCart();
       return () => {}
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
     }, [state]);
     
 
