@@ -1,54 +1,52 @@
-import React, { useState } from "react";
-import "./App.css";
-import Navbar from "./components/Navbar/Navbar";
-import Home from "./components/Home/Home";
-import Contact from "./components/Contact/Contact"
-import About from "./components/About/About";
-import Sidebar from "./components/Sidebar/Sidebar";
-import { Routes, Route } from "react-router-dom";
-
-import { Parallax } from "react-parallax";
-import Woman from "./images/woman.jpg";
-import City from "./images/city.jpg";
-import Fly from "./images/fly.jpg";
+import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
+import { userContext } from './context/Context';
+import Header from './components/Header';
+import Home from './view/Home';
+import Product from './components/Product';
+import Login from './view/Login';
+import User from './view/User';
+import Details from './view/Details';
+import Footer from './components/Footer';
 
 function App() {
-  const [isopen, setisopen] = useState(false);
-  const toggle = () => {
-    setisopen(!isopen);
+  const { dispatch } = useContext(userContext);
+  
+  const getProducts =  async () => {
+    const rest = await fetch('https://fakestoreapi.com/products',{ 
+      cache: 'no-cache',
+      referrerPolicy: "unsafe-url"
+    }).then(e=>e.json());
+    dispatch({type:"newData", data:rest});
   };
 
+  const getCategorys =  async () => {
+    const rest = await fetch('https://fakestoreapi.com/products/categories',{
+      cache: 'no-cache',
+      referrerPolicy: "unsafe-url"
+    }).then(e=>e.json());
+    dispatch({type:"newCategorys", categorys:rest});
+  };
+
+  useEffect(() => {
+      getCategorys();
+      getProducts();
+    return () => {}
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  
   return (
     <>
-      <Navbar toggle={toggle} />
-      <Sidebar isopen={isopen} toggle={toggle} />
+      <Header />
       <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="/About" element={<About />} />
-        <Route path="/Contact" element={<Contact />} />
+        <Route path="fakestoreapi/" element={<Home />} />
+        <Route path="fakestoreapi/product/:category" element={<Product />} />
+        <Route path="fakestoreapi/login" element={<Login />} />
+        <Route path="fakestoreapi/user" element={<User />} />
+        <Route path="fakestoreapi/details/:id" element={<Details />} />
       </Routes>
-
-      <div className="App">
-      <Parallax strength={300} bgImage={Woman}>
-        <div className="content">
-          <div className="text-content">Normal Parallax</div>
-        </div>
-      </Parallax>
-
-      <Parallax strength={300} blur={{ min: -10, max: 10 }} bgImage={City}>
-        <div className="content">
-          <div className="text-content">Blur</div>
-        </div>
-      </Parallax>
-
-      <Parallax strength={-300} bgImage={Fly}>
-        <div className="content">
-          <div className="text-content">Reverse Parallax</div>
-        </div>
-      </Parallax>
-
-      <div className="content"></div>
-    </div>
+      <Footer />
     </>
   );
 }

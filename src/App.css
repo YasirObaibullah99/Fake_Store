@@ -1,21 +1,428 @@
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+html {
+  position: relative;
+  min-height: 100%;
 }
-.content {
-  height: 100vh;
+header {
+  display: grid;
+  background-color: #d6dbde;
+  grid-template-columns: 100%;
+  justify-items: center;
+  min-height: 3rem;
+  align-items: center;
+  box-shadow: 0 0 5px 1px rgb(128 128 128 / 50%);
 }
-
-.text-content {
+header > .toggle {
   position: absolute;
-  top: 50%;
+  right: 1rem;
+  top: 0.1rem;
+  cursor: pointer;
+}
+header > .toggle > div {
+  height: 3px;
+  background-color: black;
+  width: 30px;
+  margin: 5px 0;
+}
+header > h1 > a {
+  font-size: 2rem;
+  padding: 1rem 0;
+  color: black;
+  text-decoration: none;
+}
+header > ul {
+  list-style: none;
+  display: grid;
+  overflow: hidden;
+  height: 0;
+  transition: height 0.5s ease-in-out;
+}
+header > ul.active {
+  height: 15rem;
+}
+header > ul > li {
+  display: inline;
+  padding: 0.5rem 0;
+  text-align: center;
+}
+header > ul > li:hover > a {
+  text-shadow: 2px 2px white;
+}
+header > ul > li > a {
+  text-decoration: none;
+  color: black;
+  transition: text-shadow 0.2s ease-in-out;
+}
+header > div {
+  padding: 0.5rem 0;
+}
+.slide{
+  position: relative;
+}
+.slide > picture > img {
+  width: 100%;
+}
+.slide > p {
+  opacity: 0;
+}
+.listProduct {
+  padding-top: 2rem;
+  margin-bottom: 13rem;
+}
+.listProduct picture,
+.cart picture,
+.likes picture {
+  overflow: hidden;
+}
+.listProduct > ul,
+.cart > ul,
+.likes > ul {
+  margin: auto;
+  width: 90%;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5rem;
+}
+.listProduct > ul > li,
+.cart > ul > li,
+.likes > ul > li {
+  display: grid;
+  align-items: center;
+  grid-template-rows: auto 4rem;
+  border: 1px solid rgb(128 128 128 / 50%);
+  padding: 1rem;
+  border-radius: 0 1rem;
+  position: relative;
+  overflow: hidden;
+}
+.listProduct > ul > li:hover > picture > img {
+  transform: scale(1.1);
+}
+.listProduct > ul > li > picture > img,
+.cart > ul > li > picture > img,
+.likes > ul > li > picture > img {
+  width: 100%;
+  margin: auto;
+  transition: transform 0.5s ease-in-out;
+}
+.listProduct > ul > li > a,
+.cart > ul > li > a,
+.likes > ul > li > a {
+  position: absolute;
+  bottom: -50px;
   left: 50%;
-  padding: 5px 15px;
-  transform: translate(-50%, -50%);
-  background: gray;
+  transform: translateX(-50%);
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 5rem;
+  background-color: white;
+  opacity: 0;
+  text-decoration: none;
+  color: black;
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+}
+.listProduct > ul > li:hover > a,
+.cart > ul > li:hover > a,
+.likes > ul > li:hover > a {
+  bottom: 50%;
+  opacity: 1;
+}
+.listProduct > ul > li > a:hover,
+.cart > ul > li > a:hover,
+.likes > ul > li > a:hover {
+  background-color: black;
+  color: white ;
+}
+.like{
+  float: right;
+  cursor: pointer;
+}
+.like > svg {
+  color: red;
+}
+.priceProduct, .like {
+  display: inline;
+}
+a {
+  font-size: 1.3rem;
+}
+.login, .details {
+  margin-top: 7rem;
+}
+.login > form > label,
+.login > form > input,
+.login > form > button {
+  font-size: 1.5rem;
+}
+.login > form > label {
+  font-weight: bold;
+}
+.login > form > button {
+  grid-column: span 2;
+  max-width: 10rem;
+  margin: auto;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgb(128 128 128 / 50%);
+  background-color: rgb(255 255 255);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.login > form > button.enable:hover {
+  border: 1px solid rgb(255 255 255);
+  background-color: rgb(128 128 128 / 50%);
+}
+.login > form > input,
+.datosUser input {
+  border: 1px solid rgb(128 128 128 / 50%);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+.login > form {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-row-gap: 1rem;
+  align-items: center;
+  max-width: 50rem;
+  margin: auto;
+  position: relative;
+}
+.eyes {
+  position: absolute;
+  right: 1rem;
+  bottom: 4.4rem;
+  cursor: pointer;
+}
+.user {
+  width: 90%;
+  margin: 7rem auto;
+}
+.datosUser label, .datosUser input {
+  font-size: 1.5rem;
+}
+.firstname, .lastname, .username, .email, .address {
+  display: grid;
+  grid-template-columns: auto;
+  margin: 1rem 0;
+  align-items: center;
+}
+.datosUser > button {
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+  background-color: rgb(255 0 0 / 50%);
+  border-radius: 0.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in, box-shadow 0.2s ease-in, color 0.2s ease-in;
+}
+.datosUser > button:hover {
+  background-color: rgb(255 0 0);
+  box-shadow: 0 0 10px 1px rgb(255 0 0 / 50%);
   color: white;
-  border-radius: 20px;
-  font-size: 50px;
+}
+.details{
+  display: grid;
+  grid-template-columns: auto;
+  max-width: 90%;
+  margin: 7rem auto;
+}
+.details > picture > img {
+  max-width: 100%;
+  border: 1px solid rgb(128 128 128 / 50%);
+  padding: 1rem;
+  border-radius: 0 2rem;
+}
+.detail{
+  display: grid;
+  grid-template-columns: 7rem auto;
+  align-items: center;
+  margin-top: 2rem;
+}
+.detail > h2 , .detail > label > span {
+  font-size: 1.5rem;
+}
+.detail > label {
+  font-weight: bold;
+  margin: 0.5rem 0;
+}
+.detail > button {
+  max-width: 8rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: rgb(0 128 0 / 50%);
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+}
+.detail > button.enable:hover {
+  background-color: rgb(0 128 0);
+  color: white;
+  box-shadow: 0 0 10px 1px rgb(0 128 0 / 50%);
+}
+.detail > button.delete {
+  background-color: rgb(255 0 0 / 50%);
+}
+.detail > button.delete:hover {
+  background-color: rgb(255 0 0);
+  box-shadow: 0 0 10px 1px rgb(255 0 0 / 50%);
+}
+.detail > button:disabled {
+  background-color: grey;
+}
+.detail > input[type='number']{
+  border: 1px solid rgb(128 128 128 / 50%);
+  padding: 0.5rem;
+  margin-right: 1rem;
+  border-radius: 0.5rem;
+}
+.cart > h2,
+.likes > h2,
+.datosUser > h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  margin: 2rem 0;
+  text-decoration: underline;
+}
+footer {
+  background-color: black;
+  color: white;
+  padding: 1rem 0;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+footer > ul {
+  list-style: none;
+}
+footer > ul > li {
+  margin: 0.5rem 0;
+}
+footer > ul > li > a {
+  text-decoration: none;
+  color: white;
+}
+footer > p {
+  font-weight: bold;
+}
+@media (min-width:1000px) {
+  header {
+    grid-template-columns: auto 50rem;
+    justify-items: start;
+    height: 5rem;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 2;
+  }
+  header > h1 {
+    margin-left: 2rem;
+  }
+  header > .toggle {
+    display: none;
+  }
+  header > ul {
+    display: inline;
+    height: 1.5rem;
+  }
+  header > ul > li {
+    padding: 0 1rem;
+  }
+  .slide {
+    margin-top: 5rem;
+  }
+  .slide > p {
+    opacity: 0;
+    position: absolute;
+    left: 10%;
+    font-weight: bolder;
+    color: rgb(60 59 59);
+  }
+  .slide > p:nth-child(2) {
+    top: 100%;
+    font-size: 2rem;
+    animation-duration: 8s;
+    animation-name: p1;
+    animation-iteration-count: infinite;
+  }
+  .slide > p:last-child {
+    top: 120%;
+    font-size: 5rem;
+    animation-duration: 8s;
+    animation-name: p2;
+    animation-iteration-count: infinite;
+  }
+  .listProduct > ul > li,
+  .cart > ul > li,
+  .likes > ul > li {
+    max-width: 20rem;
+  }
+  .datosUser,
+  .cart,
+  .likes{
+    width: 50rem;
+    margin: auto;
+  }
+  .firstname, .lastname, .username, .email, .address {
+    grid-template-columns: 10rem auto;
+  }
+  .firstname > label, .lastname > label, .username > label, .email > label, .address > label {
+    font-weight: bold;
+  }
+  .datosUser input {
+    margin-left: 1rem;
+  }
+  .details {
+    max-width: 80rem;
+    grid-template-columns: 30rem auto;
+    grid-column-gap: 5rem;
+  }
+  footer > ul > li {
+    margin: 0 1rem;
+    display: inline;
+  }
+  footer > p {
+    margin-top: 1rem;
+  }
+  @keyframes p1 {
+    0% {
+      opacity: 0;
+      top: 100%;
+    }
+    50% {
+      opacity: 1;
+      top: 30%;
+    }
+    90% {
+      opacity: 1;
+      top: 30%;
+    }
+    100% {
+      opacity: 0;
+      top: 30%;
+    }
+  }
+  @keyframes p2 {
+    0% {
+      opacity: 0;
+      top: 100%;
+    }
+  
+    60% {
+      opacity: 1;
+      top: 40%;
+    }
+    90% {
+      opacity: 1;
+      top: 40%;
+    }
+    100% {
+      opacity: 0;
+      top: 40%;
+    }
+  }
+
 }
